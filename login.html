@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>POST Request Example</title>
+</head>
+<body>
+  <script>
+    // Create the data object
+    const data = {
+      username: "test",
+      password: "test12345"
+    };
+
+    // Function to send the POST request
+    async function sendPostRequest() {
+      try {
+        const response = await fetch('http://localhost:8000/api/v1/login/', {
+          method: 'POST',
+          headers: {
+            'Accept': 'application/json',
+            'Content-Type': 'application/json'
+          },
+          body: JSON.stringify(data)
+        });
+
+        if (!response.ok) {
+          throw new Error('Network response was not ok ' + response.statusText);
+        }
+
+        const responseData = await response.json();
+        console.log('Response:', responseData);
+      } catch (error) {
+        console.error('There was a problem with the fetch operation:', error);
+      }
+    }
+
+    // Call the function to send the POST request
+    sendPostRequest();
+  </script>
+</body>
+</html>
