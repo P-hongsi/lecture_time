@@ -9,9 +9,5 @@ class TimeTable(Base):
 
     user_id = Column(String, primary_key=True)
     user_password = Column(String(128), nullable=False)  # null 값 허용안함
-    lecture = Column(String, nullable=True)
-    day = Column(String(30), nullable=True)
-    start_time = Column(String(30), nullable=True)
-    finish_time = Column(String(30), nullable=True)
-    memo = finish_time = Column(String, nullable=True)
+    data = Column(String, nullable=True)
     create_date = Column(DateTime(timezone=True))
