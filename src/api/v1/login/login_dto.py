@@ -32,6 +32,7 @@ class CreateUserInfo(BaseDTO):
         if not any(char.isalpha() for char in v):
             raise HTTPException(status_code=422, detail="비밀번호는 8자리 이상 영문과 숫자를 포함하여 작성해 주세요.")
         return v
+    # 아이디 유효성을 검사하는 함수
     @validator('user_id')
     def validate_id(cls, v):
         if len(v) < 8:

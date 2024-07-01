@@ -1,14 +1,15 @@
-from sqlalchemy import Result, ScalarResult, select, update, insert, delete
-from sqlalchemy.orm import joinedload, query
-from var.models import TimeTable
-from api.v1.login.login_dto import CreateUserInfo
-from var.session import get_db
-from fastapi import Depends
-from sqlalchemy.orm import Session
-from sqlalchemy.ext.asyncio import AsyncSession
+from sqlalchemy import Result, ScalarResult, select, update, insert, delete  # SQLAlchemy 쿼리 관련 모듈 import
+from sqlalchemy.orm import joinedload, query  # SQLAlchemy ORM 관련 모듈 import
+from var.models import TimeTable  # 타임 테이블 모델 import
+from api.v1.login.login_dto import CreateUserInfo  # 로그인 DTO 모듈에서 CreateUserInfo import
+from var.session import get_db  # 데이터베이스 세션 가져오기 함수 import
+from fastapi import Depends  # FastAPI 종속성 관련 모듈 import
+from sqlalchemy.orm import Session  # SQLAlchemy 세션 import
+from sqlalchemy.ext.asyncio import AsyncSession  # 비동기 SQLAlchemy 세션 import
 
-from passlib.context import CryptContext
+from passlib.context import CryptContext  # 비밀번호 암호화 관련 모듈 import
 
+# PassLib를 사용하여 bcrypt로 비밀번호 해시화 설정
 pwd_context = CryptContext(schemes=["bcrypt"], deprecated="auto")
 
 # 주어진 사용자 email과 비밀번호를 확인하는 함수

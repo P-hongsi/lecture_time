@@ -1,9 +1,6 @@
-# 호출할 모듈 추가
-from api.v1.login import login_dao
-from api.v1.login.login_dto import CreateUserInfo
-
-# (db 세션 관련)이후 삭제 예정
-from sqlalchemy.ext.asyncio import AsyncSession
+from api.v1.login import login_dao  # 로그인 DAO 모듈 import
+from api.v1.login.login_dto import CreateUserInfo  # 로그인 DTO 모듈에서 CreateUserInfo import
+from sqlalchemy.ext.asyncio import AsyncSession  # 비동기 세션 모듈 import
 
 # 사용자를 인증하는 서비스 함수
 async def verify(user_id: str, user_password: str, db: AsyncSession) -> bool:

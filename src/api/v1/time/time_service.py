@@ -1,12 +1,11 @@
-# 호출할 모듈 추가
-from api.v1.time import time_dao
+from api.v1.time import time_dao  # time_dao 모듈 import
+from sqlalchemy.ext.asyncio import AsyncSession  # 비동기 세션 모듈 import
 
-# (db 세션 관련)이후 삭제 예정
-from sqlalchemy.ext.asyncio import AsyncSession
-
+# 시간표 데이터 저장 함수
 async def post_time_data(user_id: str, data: str, db: AsyncSession) -> None:
-    await time_dao.post_time_data(user_id, data, db)
+    await time_dao.post_time_data(user_id, data, db)  # DAO의 데이터 저장 함수 호출
 
+# 시간표 데이터 가져오기 함수
 async def get_time_data(user_id: str, db: AsyncSession) -> None:
-    result = await time_dao.get_time_data(user_id, db)
-    return result
+    result = await time_dao.get_time_data(user_id, db)  # DAO의 데이터 가져오기 함수 호출
+    return result  # 결과 반환
