@@ -10,4 +10,4 @@ class TimeTable(Base):
     user_id = Column(String, primary_key=True)
     user_password = Column(String(128), nullable=False)  # null 값 허용안함
     data = Column(String, nullable=True)
-    create_date = Column(DateTime(timezone=True), default=func.now(), nullable=False)
+    create_date = Column(DateTime(timezone=True), nullable=False)

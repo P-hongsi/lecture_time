@@ -35,8 +35,8 @@ class CreateUserInfo(BaseDTO):
     # 아이디 유효성을 검사하는 함수
     @validator('user_id')
     def validate_id(cls, v):
-        if len(v) < 8:
-            raise HTTPException(status_code=422, detail="아이디는 8자리 이상으로 작성해 주세요.")
+        if len(v) < 6 and len(v) > 16 :
+            raise HTTPException(status_code=422, detail="아이디는 8자리 이상 16자리 이하로 작성해 주세요.")
         return v
 
 class LoginForm(BaseDTO):
