@@ -1,0 +1,61 @@
+<!DOCTYPE html>
+<html lang="kr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Calendar</title>
+    <link rel="stylesheet" href="calendar.css">
+    <link rel="stylesheet" href="modal.css">
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/crypto-js/4.1.1/crypto-js.min.js"></script>
+</head>
+<body>
+    <div id="button">
+        <button onclick="logout('encryptedId')" id="logout">로그아웃</button>
+    </div>
+    <div class="calendar">
+        <div id="tableContainer"></div>
+    </div>
+    <div id="button">
+        <button onclick="openEditModal(false)" id="edit">일정 추가</button>
+        <button onclick="loadData()" id="load">불러오기</button>
+        <button onclick="saveSchedule()" id="save">저장</button>
+    </div>
+    
+    <!-- 모달 -->
+    <div class="modal" id="modal">
+        <div class="modal-content">
+            <div id="제목">
+                <label for="inputText">제목:</label>
+                <input type="text" id="inputText">
+            </div>
+            <div id="시간">
+                <div>
+                    <label>시간:</label>
+                    <select id="inputDay">
+                    </select>
+                    <select id="startTimeHour">
+                    </select>
+                    :
+                    <select id="startTimeMinute">
+                    </select>
+                    ~ 
+                    <select id="endTimeHour">
+                    </select>
+                    :
+                    <select id="endTimeMinute">
+                    </select>
+                </div>
+            </div>
+            <div id="메모">
+                <label for="note">메모:</label>
+                <textarea id="note" name="note" rows="3" placeholder="메모를 입력하세요"></textarea>
+            </div>
+            <div id="buttons">
+                <button type="button" id="addButton" onclick="addSchedule()">추가</button>
+                <button type="button" id="closeButton" onclick="closeEditModal()">닫기</button>
+            </div>
+        </div>
+    </div>
+</body>
+<script src="calendar.js"></script>
+</html>
