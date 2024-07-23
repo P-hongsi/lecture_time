@@ -1,5 +1,5 @@
 from typing import Annotated, Optional  # 타입 힌트를 위한 모듈 import
-from fastapi import APIRouter, Depends, Response, Request  # FastAPI 관련 모듈 import
+from fastapi import APIRouter, Depends, Response, Request, HTTPException  # FastAPI 관련 모듈 import
 from core.type import ResultType  # 커스텀 타입 import
 from core.status import Status, SU, ER  # 상태 및 응답 관련 모듈 import
 import logging  # 로깅 모듈 import
@@ -18,13 +18,13 @@ router = APIRouter(prefix="/time", tags=["time"])
     "/",
     summary="시간표 데이터 저장",  # API 요약
     description="- 강의명, 요일, 시작시간, 마치는 시간, 메모",  # API 설명
-    responses=Status.docs(SU.SUCCESS, ER.INVALID_REQUEST)  # 응답 문서화
+    responses=Status.docs(SU.CREATED, ER.INVALID_REQUEST)  # 응답 문서화
 )
 async def post_time(user_id: str, data: str, db: AsyncSession = Depends(get_db)):
     logger.info("----------시간표 데이터 저장----------")  # 로그 출력
     await time_service.post_time_data(user_id, data, db)  # 시간표 데이터 저장 서비스 호출
     logger.info("데이터 저장 성공")  # 로그 출력
-    return SU.CREATED  # 성공 응답 반환
+    raise HTTPException(status_code=201, detail="데이터 저장 성공")
 
 # 시간표 데이터 가져오기 엔드포인트
 @router.get(

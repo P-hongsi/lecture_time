@@ -29,11 +29,11 @@ async def post_login(response: Response, login_form: LoginForm, db: AsyncSession
     logger.info("----------로그인----------")  # 로그 출력
     verify = await login_service.verify(login_form.username, login_form.password, db)  # 로그인 서비스 호출하여 인증 확인
     if not verify:
-        logger.warning("로그인 실패: 잘못된 사용자명 또는 비밀번호")  # 로그 출력
+        logger.warning("로그인 실패:")  # 로그 출력
         raise HTTPException(status_code=401, detail="잘못된 사용자명 또는 비밀번호")
 
     logger.info("로그인 성공")  # 로그 출력
-    return {"detail": "Success"}  # 성공 응답 반환
+    raise HTTPException(status_code=200, detail="로그인 성공")
 
 # 회원가입 엔드포인트
 @router.post(
@@ -48,15 +48,14 @@ async def post_signup(login_info: Optional[CreateUserInfo], db: AsyncSession = D
      # 요청 본문에서 유저 정보가 제공되지 않은 경우 예외 처리
     if login_info is None:
         logger.warning("회원가입 요청에 유저 정보가 없음.")  # 로그 출력
-        raise HTTPException(status_code=400, detail="User information is required.")
+        raise HTTPException(status_code=400, detail="공백")
 
     # 유저 존재 여부 확인
     if await login_service.is_user(login_info.user_id, db):
         logger.warning("이미 존재하는 유저.")  # 로그 출력
-        raise HTTPException(status_code=409, detail="User already exists.")  # 중복 레코드 응답 반환
+        raise HTTPException(status_code=409, detail="중복된 아이디")  # 중복 레코드 응답 반환
 
     # 회원가입 서비스 호출
     await login_service.post_signup(login_info, db)
-    logger.info("회원가입 성공.")  # 로그 출력
-    return {"detail": "User created successfully."}  # 성공 응답 반환
-    return SU.CREATED  # 성공 응답 반환
+    logger.info("회원가입 성공")  # 로그 출력
+    raise HTTPException(status_code=201, detail="회원가입 성공")
